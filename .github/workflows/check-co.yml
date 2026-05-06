@@ -1,0 +1,15 @@
+name: Check Connection
+on: [push]
+
+jobs:
+  test_connection:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Databricks CLI
+        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+
+      - name: Check Workspace
+        env:
+          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
+          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
+        run: databricks auth describe
