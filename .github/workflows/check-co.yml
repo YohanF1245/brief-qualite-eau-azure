@@ -1,15 +1,20 @@
-name: Check Connection
-on: [push]
+bundle:
+  name: projet_dlt_yferdin
 
-jobs:
-  test_connection:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Databricks CLI
-        run: curl -fsSL https://raw.githubusercontent.com/databricks/setup-cli/main/install.sh | sh
+resources:
+  jobs:
+    hello_world_job:
+      name: "Job_Hello_World"
+      tasks:
+        - task_key: hello_task
+          new_cluster:
+            spark_version: "13.3.x-scala2.12"
+            node_type_id: "Standard_DS3_v2"
+            num_workers: 1
+          spark_python_task:
+            python_file: ./src/hello.py
 
-      - name: Check Workspace
-        env:
-          DATABRICKS_HOST: ${{ secrets.DATABRICKS_HOST }}
-          DATABRICKS_TOKEN: ${{ secrets.DATABRICKS_TOKEN }}
-        run: databricks auth describe
+targets:
+  dev:
+    workspace:
+      host: https://adb-7405614618199002.2.azuredatabricks.net
