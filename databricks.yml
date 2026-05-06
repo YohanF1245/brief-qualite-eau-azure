@@ -12,7 +12,7 @@ resources:
             node_type_id: "Standard_DS3_v2"
             num_workers: 1
           spark_python_task:
-            python_file: ./src/hello.py
+            python_file: ./src/hello_world.py
 
 targets:
   dev:
